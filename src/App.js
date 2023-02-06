@@ -4,42 +4,85 @@ import BarChart from "./components/BarChart";
 import LineChart from "./components/LineChart";
 import PieChart from "./components/PieChart";
 import { UserData } from "./Data";
+import DoughnutChart from './components/DoughnutChart'
+import HorizontalBarChart from './components/HorizontalChart'
+import Images from './components/ImageMain'
+import Stackchart from './components/Stackchart'
+import MultiLineChart from './components/MultiLineGraph'
+import BarchartWithLineChart  from './components/BarchartWithLineGraph'
 
-function App() {
+
+export default function App() {
+  const  options =  {scales: {
+    yAxes: [{
+      gridLines: {
+        display: false,
+      },
+    }]
+  }}
+
   const [userData, setUserData] = useState({
-    labels: UserData.map((data) => data.year),
+    labels: UserData.map((data) => data.month),
+   
     datasets: [
       {
         label: "Users Gained",
         data: UserData.map((data) => data.userGain),
         backgroundColor: [
           "rgba(75,192,192,1)",
-          "#ecf0f1",
-          "#50AF95",
+          "blue",
+          "#50AF95", 
           "#f3ba2f",
           "#2a71d0",
         ],
-        borderColor: "black",
+        borderColor: "grey",
         borderWidth: 2,
       },
     ],
   });
 
-  // IF YOU SEE THIS COMMENT: I HAVE GOOD EYESIGHT
+ 
 
   return (
     <div className="App">
-      <div style={{ width: 700 }}>
-        <BarChart chartData={userData} />
+         <Images />
+      <div className=" graphContainer">
+      <div className="graph" style={{ width: 700 }}>
+        <BarChart options={options} chartData={userData} />
       </div>
-      <div style={{ width: 700 }}>
+      <div className="graph"style={{ width: 700 }}>
         <LineChart chartData={userData} />
       </div>
-      <div style={{ width: 700 }}>
+      </div>
+      <div className="graphContainer">
+      <div className="graph3" style={{ width: 450 }}>
         <PieChart chartData={userData} />
       </div>
+      <div className="graph4" style={{ width: 450 }}>
+        <DoughnutChart chartData={userData} />
+      </div>
+      </div>
+      {/* <Stackcharts style={{width:450}}/> */}
+     <div className= "graph6" >
+     <HorizontalBarChart chartData={userData} />
+  
+  <Stackchart chartData={userData}/>
+     </div>
+     <div className="graph6">
+     <div style={{ width: 550 }}>
+     <MultiLineChart />
+     </div>
+     <div style={{ width: 550 }}>
+      <BarchartWithLineChart />
+     </div>
+     </div>
+     
+     
+      
+   
+    
     </div>
   );
 }
 
-export default App;
+
